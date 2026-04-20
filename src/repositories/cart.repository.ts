@@ -35,50 +35,42 @@ const getCartItemsForTransaction = async (userId: number, transaction: Transacti
   });
 };
 
-const findById = async (cartItemId: number, userId?: number, transaction?: Transaction) => {
+const findById = async (cartItemId: number, userId?: number) => {
   return CartItem.findOne({
     where: {
       id: cartItemId,
       ...(userId ? { userId } : {})
-    },
-    ...(transaction ? { transaction } : {})
+    }
   });
 };
 
-const findByProductId = async (userId: number, productId: number, transaction?: Transaction) => {
+const findByProductId = async (userId: number, productId: number) => {
   return CartItem.findOne({
-    where: { userId, productId },
-    ...(transaction ? { transaction } : {})
+    where: { userId, productId }
   });
 };
 
-const create = async (
-  payload: { userId: number; productId: number; quantity: number },
-  transaction?: Transaction
-) => {
-  return CartItem.create(payload, transaction ? { transaction } : undefined);
+const create = async (payload: { userId: number; productId: number; quantity: number }) => {
+  return CartItem.create(payload);
 };
 
-
-
-const updateQuantity = async (cartItem: CartItem, quantity: number, transaction?: Transaction) => {
-  await cartItem.update({ quantity }, transaction ? { transaction } : undefined);
+const updateQuantity = async (cartItem: CartItem, quantity: number) => {
+  await cartItem.update({ quantity });
   return cartItem;
 };
 
-const getCartItemWithProduct = async (cartItemId: number, userId?: number, transaction?: Transaction) => {
+const getCartItemWithProduct = async (cartItemId: number, userId?: number) => {
   return CartItem.findOne({
     where: {
       id: cartItemId,
       ...(userId ? { userId } : {})
     },
-    include: cartItemInclude,
-    ...(transaction ? { transaction } : {})
+    include: cartItemInclude
   });
 };
 
-const destroy = async (cartItem: CartItem, transaction?: Transaction) => {
-  await cartItem.destroy(transaction ? { transaction } : undefined);
+const destroy = async (cartItem: CartItem) => {
+  await cartItem.destroy();
 };
 
 const clearCart = async (userId: number, transaction: Transaction) => {

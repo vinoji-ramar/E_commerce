@@ -35,11 +35,7 @@ const placeOrder = async (userId: number) => {
     }
 
     const order = await orderRepository.createOrder(
-      {
-        userId,
-        totalAmount,
-        itemCount
-      },
+      { userId, totalAmount, itemCount },
       transaction
     );
 
@@ -60,13 +56,27 @@ const placeOrder = async (userId: number) => {
         transaction
       );
 
-      await productRepository.updateStock(product, product.stock - cartItem.quantity, transaction);
+      await productRepository.updateStock(
+        product,
+        product.stock - cartItem.quantity,
+        transaction
+      );
     }
 
     await cartRepository.clearCart(userId, transaction);
 
-    return orderRepository.findByIdWithItems(order.id, transaction);
+    return order.id;
   });
+};
+
+const getOrderDetails = async (orderId: number) => {
+  const order = await orderRepository.findByIdWithItems(orderId);
+
+  if (!order) {
+    throw new AppError(404, "Order not found");
+  }
+
+  return order;
 };
 
 const getOrderHistory = async (userId: number, query: PaginationQuery["query"]) => {
@@ -83,5 +93,6 @@ const getOrderHistory = async (userId: number, query: PaginationQuery["query"]) 
 
 export const orderService = {
   placeOrder,
+  getOrderDetails,
   getOrderHistory
 };

@@ -12,7 +12,10 @@ const orderItemsInclude: Includeable[] = [
   }
 ];
 
-const createOrder = async (payload: { userId: number; totalAmount: number; itemCount: number }, transaction: Transaction) => {
+const createOrder = async (
+  payload: { userId: number; totalAmount: number; itemCount: number },
+  transaction: Transaction
+) => {
   return Order.create(payload, { transaction });
 };
 
@@ -23,10 +26,9 @@ const createOrderItem = async (
   return OrderItem.create(payload, { transaction });
 };
 
-const findByIdWithItems = async (orderId: number, transaction?: Transaction) => {
+const findByIdWithItems = async (orderId: number) => {
   return Order.findByPk(orderId, {
-    include: orderItemsInclude,
-    ...(transaction ? { transaction } : {})
+    include: orderItemsInclude
   });
 };
 

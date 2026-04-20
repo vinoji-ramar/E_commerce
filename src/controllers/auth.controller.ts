@@ -50,7 +50,7 @@ const refreshToken = async (
 
     sendSuccess(response, 200, "Token refreshed successfully", data);
   } catch (error) {
-    console.error("🔥 REFRESH CONTROLLER ERROR:", error);
+    console.error("REFRESH CONTROLLER ERROR:", error);
     next(error);
   }
 };

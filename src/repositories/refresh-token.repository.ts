@@ -11,10 +11,10 @@ const create = async (
 ) => {
   try {
     return await RefreshToken.create(payload, {
-      transaction   // ✅ always pass as object
+      transaction 
     });
   } catch (error) {
-    console.error("🔥 REFRESH TOKEN CREATE ERROR:", error);
+    console.error("REFRESH TOKEN CREATE ERROR:", error);
     throw error;
   }
 };
@@ -29,10 +29,10 @@ const findValidToken = async (token: string, transaction?: Transaction) => {
           [Op.gt]: new Date()
         }
       },
-      transaction   // ✅ clean pass
+      transaction  
     });
   } catch (error) {
-    console.error("🔥 FIND TOKEN ERROR:", error);
+    console.error("FIND TOKEN ERROR:", error);
     throw error;
   }
 };
@@ -41,11 +41,11 @@ const revokeToken = async (refreshToken: RefreshToken, transaction?: Transaction
   try {
     await refreshToken.update(
       { isRevoked: true },
-      { transaction }   // ✅ correct
+      { transaction }  
     );
     return refreshToken;
   } catch (error) {
-    console.error("🔥 REVOKE TOKEN ERROR:", error);
+    console.error("REVOKE TOKEN ERROR:", error);
     throw error;
   }
 };

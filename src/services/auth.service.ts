@@ -22,8 +22,6 @@ const buildAuthResponse = async (
     const refreshToken = jwtUtil.signRefreshToken(payload);
 
     const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
-
-    // ✅ Save refresh token (IMPORTANT)
     await refreshTokenRepository.create(
       {
         userId: user.id,
@@ -45,7 +43,7 @@ const buildAuthResponse = async (
       }
     };
   } catch (error: any) {
-    console.error("🔥 buildAuthResponse ERROR:", error);
+    console.error("buildAuthResponse ERROR:", error);
     throw error;
   }
 };
@@ -71,7 +69,7 @@ const register = async (payload: RegisterInput["body"]) => {
 
       return buildAuthResponse(user, transaction);
     } catch (error: any) {
-      console.error("🔥 REGISTER ERROR:", error);
+      console.error("REGISTER ERROR:", error);
       throw error;
     }
   });
@@ -88,7 +86,7 @@ const login = async (payload: LoginInput["body"]) => {
 
       return buildAuthResponse(user, transaction);
     } catch (error: any) {
-      console.error("🔥 LOGIN ERROR:", error);
+      console.error("LOGIN ERROR:", error);
       throw error;
     }
   });
@@ -115,7 +113,7 @@ const refreshToken = async (token: string) => {
 
       return buildAuthResponse(user, transaction);
     } catch (error: any) {
-      console.error("🔥 REFRESH TOKEN ERROR:", error);
+      console.error("REFRESH TOKEN ERROR:", error);
       throw error;
     }
   });

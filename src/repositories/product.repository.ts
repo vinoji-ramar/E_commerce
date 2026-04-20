@@ -1,5 +1,4 @@
 import { Op, Transaction, WhereOptions } from "sequelize";
-
 import { Product } from "../models/product.model";
 
 type ProductListOptions = {
@@ -26,37 +25,35 @@ const getProducts = async ({ limit, offset, brand }: ProductListOptions) => {
 };
 
 const findById = async (productId: number, transaction?: Transaction) => {
-  return Product.findByPk(productId, transaction ? { transaction } : undefined);
+  return Product.findByPk(productId);
 };
 
-const updateImageUrl = async (product: Product, imageUrl: string, transaction?: Transaction) => {
-  await product.update({ imageUrl }, transaction ? { transaction } : undefined);
+const updateImageUrl = async (product: Product, imageUrl: string) => {
+  await product.update({ imageUrl });
   return product;
 };
 
 const updateStock = async (product: Product, stock: number, transaction?: Transaction) => {
-  await product.update({ stock }, transaction ? { transaction } : undefined);
+  await product.update({ stock });
   return product;
 };
 
 const create = async (
-  payload: { name: string; brand: string; price: number; stock: number; imageUrl?: string | null },
-  transaction?: Transaction
+  payload: { name: string; brand: string; price: number; stock: number; imageUrl?: string | null }
 ) => {
-  return Product.create(payload, transaction ? { transaction } : undefined);
+  return Product.create(payload);
 };
 
 const update = async (
   product: Product,
-  payload: Partial<{ name: string; brand: string; price: number; stock: number; imageUrl: string | null }>,
-  transaction?: Transaction
+  payload: Partial<{ name: string; brand: string; price: number; stock: number; imageUrl: string | null }>
 ) => {
-  await product.update(payload, transaction ? { transaction } : undefined);
+  await product.update(payload);
   return product;
 };
 
-const destroy = async (product: Product, transaction?: Transaction) => {
-  await product.destroy(transaction ? { transaction } : undefined);
+const destroy = async (product: Product) => {
+  await product.destroy();
 };
 
 export const productRepository = {
