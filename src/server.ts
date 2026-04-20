@@ -8,8 +8,8 @@ const PORT = env.PORT;
 const startServer = async (): Promise<void> => {
   await initializeDatabase();
 
-app.listen(PORT, '0.0.0.0', () => {
-  logger.info(`Server running on http://0.0.0.0:${PORT}`);
+app.listen(PORT, () => {
+  logger.info(`Server running on http://localhost:${PORT}`);
 });
 };
 
