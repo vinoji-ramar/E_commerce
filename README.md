@@ -70,8 +70,8 @@ npm run build
 
 Open:
 
-`GET http://localhost:3000/api/docs`
+`GET http://localhost:4000/api/v1/api-docs`
 
 Uploads are served from:
 
-`http://localhost:3000/uploads/products/<file-name>`
+`http://localhost:4000/api/v1/uploads/products/<file-name>`
