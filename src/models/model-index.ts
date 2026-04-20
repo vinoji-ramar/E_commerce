@@ -14,6 +14,7 @@ const initializeModels = (sequelize: Sequelize): void => {
   OrderItem.initialize(sequelize);
   User.initialize(sequelize);
   RefreshToken.initialize(sequelize);
+  
 
   CartItem.belongsTo(Product, { foreignKey: "productId", as: "product" });
   Product.hasMany(CartItem, { foreignKey: "productId", as: "cartItems" });

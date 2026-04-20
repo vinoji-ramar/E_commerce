@@ -7,12 +7,17 @@ import {
   Sequelize
 } from "sequelize";
 
-class RefreshToken extends Model<InferAttributes<RefreshToken>, InferCreationAttributes<RefreshToken>> {
+class RefreshToken extends Model<
+  InferAttributes<RefreshToken>,
+  InferCreationAttributes<RefreshToken>
+> {
   declare id: CreationOptional<number>;
   declare userId: number;
   declare token: string;
   declare expiresAt: Date;
   declare isRevoked: CreationOptional<boolean>;
+  declare createdAt: CreationOptional<Date>;
+  declare updatedAt: CreationOptional<Date>;
 
   static initialize(sequelize: Sequelize): void {
     RefreshToken.init(
@@ -24,7 +29,8 @@ class RefreshToken extends Model<InferAttributes<RefreshToken>, InferCreationAtt
         },
         userId: {
           type: DataTypes.INTEGER,
-          allowNull: false
+          allowNull: false,
+          field: "user_id"   // 👈 maps camelCase → snake_case
         },
         token: {
           type: DataTypes.TEXT,
@@ -32,22 +38,32 @@ class RefreshToken extends Model<InferAttributes<RefreshToken>, InferCreationAtt
         },
         expiresAt: {
           type: DataTypes.DATE,
-          allowNull: false
+          allowNull: false,
+          field: "expires_at"
         },
         isRevoked: {
           type: DataTypes.BOOLEAN,
           allowNull: false,
-          defaultValue: false
+          defaultValue: false,
+          field: "is_revoked"
+        },
+        createdAt: {
+          type: DataTypes.DATE,
+          field: "created_at"
+        },
+        updatedAt: {
+          type: DataTypes.DATE,
+          field: "updated_at"
         }
       },
       {
         sequelize,
         modelName: "RefreshToken",
         tableName: "refresh_tokens",
-        timestamps: true
+        timestamps: true,
+        underscored: true
       }
     );
   }
 }
-
 export { RefreshToken };

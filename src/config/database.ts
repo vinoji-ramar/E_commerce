@@ -19,7 +19,7 @@ export const sequelize = new Sequelize(env.DB_NAME, env.DB_USER, env.DB_PASSWORD
     : false,
   define: {
     timestamps: true,
-    underscored: true 
+    underscored: false
   }
 });
 

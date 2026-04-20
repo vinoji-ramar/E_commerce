@@ -45,7 +45,8 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
         sequelize,
         modelName: "User",
         tableName: "users",
-        timestamps: true
+        timestamps: true,
+        underscored: true
       }
     );
   }

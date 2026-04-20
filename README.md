@@ -5,7 +5,6 @@ Simple and readable e-commerce backend for mobile phone products using:
 - Express
 - TypeScript
 - Sequelize
-- SQLite
 - Multer
 - Dotenv
 
